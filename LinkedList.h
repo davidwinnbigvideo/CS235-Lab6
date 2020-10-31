@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-#inclue <sstream>
+#include <sstream>
 #include "LinkedListInterface.h"
 using namespace std;
 

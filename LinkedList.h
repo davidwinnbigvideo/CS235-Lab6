@@ -1,9 +1,9 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include <sstream>
+#include <fstream>
 #include "LinkedListInterface.h"
-using namespace std;
-
 using namespace std;
 
 template<class T>
@@ -12,10 +12,10 @@ class LinkedList: public LinkedListInterface<T>
 private:
 
   struct Node {
-    T data; // The data we are storing
+    T value; // The data we are storing
     Node* next; // A pointer to the next node
-    Node(const T& the_data, Node* next_val = NULL) :
-      data(the_data) {next = next_val;}
+    Node(const T& the_value, Node* next_val = NULL) :
+      value(the_value) {next = next_val;}
   };
 
   Node *mylist, *head, *tail;
@@ -26,8 +26,10 @@ public:
 	LinkedList(void) {
     mylist = NULL;
     num_items = 0;
+    head = nullptr;
+    tail = nullptr;
   };
-	virtual ~LinkedList(void) {};
+	virtual ~LinkedList(void) { clear(); };
 
 	/*
 	insertHead
@@ -78,6 +80,8 @@ public:
     }
     Node *currentNode;
     currentNode = head;
+    // Node *ptr = mylist;
+    // mylist = new Node(value);
     if (!checkDuplicates(value)) {
       while (currentNode->next != NULL) {
           if (currentNode->value == insertionNode) {
@@ -114,7 +118,9 @@ public:
     currentNode = head;
     Node *previousNode;
     previousNode = NULL;
-    if (num_items < 1) {
+    // Node *ptr = mylist;
+    // mylist = new Node(value);
+    if (num_items == 0) {
       return;
     }
     if (checkDuplicates(value)) {
@@ -180,7 +186,8 @@ public:
 	If the given index is out of range of the list, throw an out of range exception.
 	*/
 	virtual T at(int index) {
-    Node currentNode;
+    Node *currentNode;
+    currentNode = head;
     if(index >= num_items) {
 			throw std::out_of_range("At Error");
 		} else {
@@ -212,7 +219,7 @@ public:
 	virtual string toString() {
     stringstream ss;
     for(Node *ptr = mylist; ptr != NULL; ptr = ptr->next){
-      ss << "ptr " << ptr << " val " << ptr->data << " next " << ptr-> next << endl;
+      ss << "ptr " << ptr << " val " << ptr->value << " next " << ptr-> next << endl;
     }
     return (ss.str());
   };

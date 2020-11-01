@@ -76,10 +76,10 @@ public:
     if (num_items == 0) {
       return;
     }
-    Node *currentNode = head;
+    Node *currentNode;
+    currentNode = head;
     if (!checkDuplicates(value)) {
       while (currentNode->next != NULL) {
-        if (currentNode->next != NULL) {
           if (currentNode->value == insertionNode) {
             Node *ptr = mylist;
             mylist = new Node(value);
@@ -90,15 +90,14 @@ public:
           }
           currentNode = currentNode->next;
         }
-        if (currentNode == tail && currentNode->value == insertionNode) {
-          Node *ptr = mylist;
-          mylist = new Node(value);
-          tail->next = mylist;
-          mylist->next = NULL;
-          tail = mylist;
-          num_items++;
-          return;
-        }
+      if (currentNode == tail && currentNode->value == insertionNode) {
+        Node *ptr = mylist;
+        mylist = new Node(value);
+        tail->next = mylist;
+        mylist->next = NULL;
+        tail = mylist;
+        num_items++;
+        return;
       }
     }
   };
@@ -111,8 +110,10 @@ public:
 	The list may or may not include a node with the given value.
 	*/
 	virtual void remove(T value) {
-    node *currentNode = head;
-    node *previousNode = NULL;
+    Node *currentNode;
+    currentNode = head;
+    Node *previousNode;
+    previousNode = NULL;
     if (num_items < 1) {
       return;
     }
@@ -179,6 +180,7 @@ public:
 	If the given index is out of range of the list, throw an out of range exception.
 	*/
 	virtual T at(int index) {
+    Node currentNode;
     if(index >= num_items) {
 			throw std::out_of_range("At Error");
 		} else {
